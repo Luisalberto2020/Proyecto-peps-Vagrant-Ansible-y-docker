@@ -1,0 +1,55 @@
+
+    (2,5 ptos ) Crea un Vagrantfile que cree 3 máquinas virtuales ubuntu con las siguientes características
+        La primera tendrá las siguientes características:
+            Nombre de la máquina: BBDD
+            Nombre del host: servidorBBDD
+            2048 MB 
+            2 CPUS
+            Redirección de puerto 3306 a 33060
+            Tendrá la ip: 192.168.56.31 en la red privada
+            Al crearse se le debe instalar el paquete python-pip
+        La segunda tendrá las siguientes características:
+            Nombre de la máquina: WEB
+            Nombre del host: servidorWeb
+            1024 MB 
+            2 CPUS
+            Redirección de puerto 80 a 8080
+            Tendrá la ip: 192.168.56.32 en la red privada
+            Al crearse se le debe instalar el paquete default-jre
+        La tercera tendrá las siguientes características:
+            Nombre de la máquina: WEB2
+            Nombre del host: servidorWeb2
+            2048 MB 
+            2 CPUS
+            Redirección de puerto 80 a 9090
+            Tendrá la ip: 192.168.56.33 en la red privada
+            Al crearse se le debe actualizar todos los paquetes
+        Muestra pantallazos donde se vean las 3 máquinas creadas
+
+    (2,5ptos) Crear un playbook para realizar las siguientes tareas en los equipos WEB y WEB2:
+        Crear el usuario prueba
+        Instalar nginx y comprobar que el servicio funciona
+        Crea el directorio /usr/share/nginx/html/app con los permisos 755
+        Copia el archivo ejemplo.html local (escribe dentro de ese archivo cualquier cosa) en el directorio/usr/share/nginx/html/app de las máquinas
+        Abre un navegador y muestra un pantallazo del servidor web de las máquinas web y web2 con la página ejemplo.html
+
+    (1,5 ptos) Crea un archivo docker-compose y los Dockerfile que necesites para arrancar 3 contenedores con las siguientes características  (HAY EJEMPLOS SIMILARES EN LA CARPETA DE TAREAS DE DOCKER):
+            1 contenedor tendrá un balanceador de carga basado en  nginx (partiendo de su imagen añade los cambios necesarios para que funcione como balanceador) que balanceará las peticiones a los contenedores apache y nginx siguientes
+            1 contenedor tendrá un servidor web apache con una página index.html creada por ti donde se vea tu nombre
+            1 contenedor tendrá un servidor web nginx con una página index.html creada por ti donde se vea tu nombre
+        Además debes abrir un navegador y captura pantallas de la conexión al balanceador de carga donde se vean los accesos a los servidores web
+
+    (3,5 ptos) Crea un archivo docker-compose y los dockerfile que necesites para arrancar 6 contenedores con las siguientes características (HAY EJEMPLOS SIMILARES EN LA CARPETA DE TAREAS DE DOCKER):
+
+            Contenedor 1: Postgresql con clave "clave$1" y volumen local en $HOME/datos-postgressql
+            Contenedor 2: Pgadmin (que se conecte a postgresql) accesible por el puerto 9091
+            Contenedor 3: Servidor web apache o nginx accesible por el puerto 9092
+            Contenedor 4: PHP con las variables de entorno necesario para acceder a postgresql. Tienes un ejemplo de aplicación sencilla que se conecta a postgresql en la carpeta de tareas de docker. Móntala en este contenedor
+            Contenedor 5: Elasticsearch
+            Contenedor 6: kibana
+        Además debes abrir un navegador y captura pantallas de la app de php
+
+EJEMPLO DE USO DE ELASTICHSEARCH Y KIBANA: https://github.com/ThibautGery/docker-logging-example/blob/master/article.md
+
+
+Fluentd Docker process schema
