@@ -11,9 +11,9 @@
         password: 111
         become: yes
 
-    - name: Instalar ngix
+    - name: Instalar nginx
       apt:
-        pkg=ngix
+        pkg=nginx
         state=latest
       become: yes
     - name: Asegurarse que ngix funciona
