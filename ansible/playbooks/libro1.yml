@@ -1,20 +1,38 @@
 
 - hosts: webs
   vars:
-    
-    remote_user: root
+    ansible_user: vagrant
+    directorioNgix: /usr/share/nginx/html/app
+    ngixUser: www-data
   tasks:
-    - name: Instalar apache
+    - name: Crear usuario de prueba
+      user:
+        name: prueba
+        password: 111
+        become: yes
+
+    - name: Instalar ngix
       apt:
-        pkg=apache2
-        state=absent
+        pkg=ngix
         state=latest
-        purge=true
       become: yes
-    - name: Asegurarse que apache funciona
+    - name: Asegurarse que ngix funciona
       service:
-        name=apache2
+        name=ngix
         state=started
         enabled=yes
-      become: yes
-
+      become: yes #sudo
+    - name: Crear el directorio /usr/share/nginx/html/app
+      file:
+        path: "{{directorioNgix}}"
+        state: directory
+        owner: "{{ngixUser}}"
+        group: "{{ngixUser}}"
+        mode: 0755
+    - name: Copiar html app
+      copy:
+        src: ../ejemplo.html
+        dest: "{{directorioNgix}}"
+        owner: "{{ngixUser}}"
+        group: "{{ngixUser}}"
+        mode: 0755

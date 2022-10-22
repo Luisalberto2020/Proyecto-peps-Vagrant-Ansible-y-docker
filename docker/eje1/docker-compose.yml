@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+
+  balanceador:
+    build: balanceador
+    ports:
+    - "8080:80"
+    environment:
+    - NGINX_PORT=80
+    restart: always
+    links:
+      - "web:web"
+      - "web2:web2"
+
+  web:
+    image: nginx:1.22.1-alpine
+    volumes:
+      - ./templates:/usr/share/nginx/html
+    environment:
+      - NGINX_PORT=80
+    restart: always
+
+  web2:
+    image: httpd:2.4.54-alpine
+    volumes:
+    - ./templates:/var/www/html
+    restart: always
