@@ -9,7 +9,7 @@
       user:
         name: prueba
         password: 111
-        become: yes
+       
 
     - name: Instalar nginx
       apt:
@@ -18,7 +18,7 @@
       become: yes
     - name: Asegurarse que ngix funciona
       service:
-        name=ngix
+        name=nginx
         state=started
         enabled=yes
       become: yes #sudo
