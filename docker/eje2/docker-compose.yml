@@ -7,7 +7,7 @@ services:
       - $HOME/datos-postgressql:/bitnami/postgresql
     environment:
       - POSTGRES_USER=luis
-      - POSTGRES_PASSWORD=clave$1
+      - POSTGRES_PASSWORD=111
     restart: always
 
   pgadmin:
@@ -26,6 +26,23 @@ services:
     - "9092:80"
     environment:
     - NGINX_PORT=80
+    links:
+     - fluentd 
+    logging:
+      driver: "fluentd" 
+      options: 
+        fluentd-address: localhost:24224 
+        tag: nginx.access
+
+  fluentd: 
+    build: ./fluent 
+    volumes: 
+    - ./fluentd/conf:/fluentd/etc 
+    links: 
+    - "elasticsearch" 
+    ports: 
+    - "24224:24224" 
+    - "24224:24224/udp"
 
   php:
     build: php
@@ -42,7 +59,6 @@ services:
 
   elasticsearch:
     image: elasticsearch:7.16.1
-    container_name: es
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
